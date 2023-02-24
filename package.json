@@ -1,0 +1,28 @@
+{
+  "name": "tech-hub",
+  "version": "1.0.0",
+  "description": "a CMS-style blog site built from scratch, following the MVC architectural structure and using Handlebars.js as the templating language, Sequelize as the ORM, and the express-session npm package for authentication. Similar to a Wordpress site, developers can publish their blog posts and comment on other developers’ posts as well. The site is deployed to Heroku and provides a platform for organizing and sharing various kinds of content.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JahazielFaye/Tech-Hub.git"
+  },
+  "author": "jahaze",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JahazielFaye/Tech-Hub/issues"
+  },
+  "homepage": "https://github.com/JahazielFaye/Tech-Hub#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "connect-session-sequelize": "^7.1.5",
+    "dotenv": "^16.0.3",
+    "express-handlebars": "^6.0.7",
+    "express-session": "^1.17.3",
+    "sequelize": "^6.29.0"
+  }
+}
