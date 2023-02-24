@@ -1,2 +1,2 @@
 # Tech-Hub
-a CMS-style blog site similar to Wordpress, with MVC architecture, Handlebars.js templates, Sequelize ORM, express-session auth, and Heroku deployment. Publish and comment on blog posts.
+a CMS-style blog site built from scratch, following the MVC architectural structure and using Handlebars.js as the templating language, Sequelize as the ORM, and the express-session npm package for authentication. Similar to a Wordpress site, developers can publish their blog posts and comment on other developers’ posts as well. The site is deployed to Heroku and provides a platform for organizing and sharing various kinds of content.
