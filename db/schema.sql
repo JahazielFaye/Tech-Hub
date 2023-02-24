@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS tech_hub;
+
+CREATE DATABASE tech_hub;
