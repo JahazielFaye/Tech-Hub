@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs')
 const sequelize = require('./config/connection');
 const path = require('path');
 const routes = require('./controllers');
@@ -34,6 +35,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session(sess));
 
+const fileExists = fs.existsSync(path.join(__dirname, 'views', 'layouts', 'main.handlebars'));
+if (!fileExists) {
+  console.error('File not found: main.handlebars');
+}
 //use routes
 app.use(routes);
 

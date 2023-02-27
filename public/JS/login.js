@@ -1,4 +1,3 @@
-//logging in
 async function signupFormHandler(event) {
     event.preventDefault();
   
@@ -52,21 +51,3 @@ async function signupFormHandler(event) {
   
   document.querySelector('.signup-form').addEventListener('submit', signupFormHandler);
   document.querySelector('.login-form').addEventListener('submit', loginFormHandler);
-
-
-  //log out 
-
-  async function logout() {
-    const response = await fetch('/api/users/logout', {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' }
-    });
-  
-    if (response.ok) {
-      document.location.replace('/');
-    } else {
-      alert(response.statusText);
-    }
-  }
-  
-  document.querySelector('#logout').addEventListener('click', logout);
