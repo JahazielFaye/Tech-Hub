@@ -2,40 +2,40 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tech Hub</title>
-  <link rel="stylesheet" href="/style/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Tech Blog</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
 <body>
-  <div class="wrapper">
-    <header>
-      <div>
-        <nav>
-          <a href="/">Home</a>
-          <a href="/dashboard">Dashboard</a>
-          {{#if loggedIn}}
-          <a href="/" id="logout">Logout</a>
-          {{else}}
-          <a href="/login">Login</a>
-          {{/if}}
-        </nav>
-      </div>
-      <div>
-        <h1 class="home-title">Tech Hub</h1>
-      </div>
-    </header>
-    <main>
-      {{{ body }}}
-    </main>
-    <footer>
-      Thanks for visiting!
-    </footer>
-  </div>
-  {{#if loggedIn}}
-  <script src="/JS/logout.js"></script>
-  {{/if}}
+    <div class="wrapper">
+        <header>
+            <h1>
+                <a href="/">home</a>
+            </h1>
+            <nav>
+                {{#if loggedIn}}
+                <a href="/dashboard">dashboard</a>
+                <button id="logout" class="btn-no-style logout">logout</button>
+                {{else}}
+                <a href="/login">login</a>
+                {{/if}}
+            </nav>
+        </header>
+        <div class="site-row">
+            <div class="site-name">
+                <h1>The Tech Blog</h1>
+            </div>
+        </div>
+        <main>
+            {{{ body }}}
+        </main>
+    </div>
+
+    {{#if loggedIn}}
+    <script src="/JS/logout.js"></script>
+    {{/if}}
 </body>
 
 </html>

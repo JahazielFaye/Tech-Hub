@@ -1,47 +1,43 @@
-const express = require('express');
-const fs = require('fs')
-const sequelize = require('./config/connection');
 const path = require('path');
+const express = require('express');
 const routes = require('./controllers');
+const sequelize = require('./config/connection');
+const helpers = require('./utils/helpers');
 const exphbs = require('express-handlebars');
+const hbs = exphbs.create({
+    helpers
+});
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const helpers = require('./utils/helpers');
 
-require('dotenv').config();
+const sess = {
+    secret: process.env.DB_SECRET,
+    cookie: {},
+    resave: false,
+    saveUninitialized: true,
+    store: new SequelizeStore({
+        db: sequelize,
+        checkExpirationInterval: 1000 * 60 * 10, // will check every 10 minutes
+        expiration: 1000 * 60 * 30 // will expire after 30 minutes
+    })
+};
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-//setup session
-const sess = {
-  secret: 'supersecretsessionsecrettext',
-  cookie: { maxAge: 180000},
-  resave: false,
-  saveUninitialized: true,
-  store: new SequelizeStore({
-    db: sequelize
-  })
-};
-
-//handlebars initialization
-const hbs = exphbs.create({ helpers });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(session(sess));
-
-const fileExists = fs.existsSync(path.join(__dirname, 'views', 'layouts', 'main.handlebars'));
-if (!fileExists) {
-  console.error('File not found: main.handlebars');
-}
-//use routes
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+app.use(express.urlencoded({
+    extended: true
+}));
 app.use(routes);
 
-sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log(`Now Listening on ${PORT}`));
+sequelize.sync();
+
+app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}!`);
 });
