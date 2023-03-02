@@ -1,5 +1,5 @@
-* {
-  box-sizing: border-box;
+body{
+  background-color: #e8f5f4;
 }
 
 body,
@@ -8,33 +8,46 @@ html {
   padding: 0;
   margin: 0;
   font-family: sans-serif;
-  color: #333;
+  color: #C0A1E5;
 }
 
 main,
 .site-name {
-  background-color: #b8cba2;
+  background-color: #fafbfc;
 }
 
 a,
 .btn-no-style,
 #comment-subtitle {
-  color: #b8cba2;
+  color: #141413;
+
 }
 
 a:hover,
 .btn-no-style:hover {
-  color: #e2edd5;
+  color: #9dCECA;;
+}
+.top header h1 {
+  padding: 5px;
+  font-size: 1em;
+    margin-top: 25px;
+  
 }
 
 a {
+  font-size: 20px;
   text-decoration: none;
   font-weight: bold;
   transition: color .1s;
 }
+a clear.centered {
+  display: block;
+  text-align: center;
+}
+
 
 button {
-  background-color: #225ca3;
+  background-color: #9dCECA;
   border: 0;
   padding: 1%;
   color: white;
@@ -45,7 +58,7 @@ button {
 }
 
 button:hover {
-  background-color: #3486eb;
+  background-color: #9dCECA;
 }
 
 .post-list {
@@ -55,7 +68,7 @@ button:hover {
 }
 
 .go-back {
-  color: #2c2307;
+  color: #C0A1E5;
 }
 
 textarea,
@@ -63,12 +76,14 @@ input {
   padding: .5%;
   border-radius: 5px;
   border: 1px solid #ccc;
+  width: 30%;
+
 }
 
 textarea:focus,
 input:focus {
   outline: none;
-  border: 1px solid #3486eb;
+  border: 1px solid #9dCECA;
 }
 
 textarea {
@@ -85,7 +100,8 @@ form label {
 }
 
 .wrapper {
-  width: 100%;
+  width: 90%;
+  border: 2px solid black;
   min-height: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -103,7 +119,7 @@ header,
 .site-row,
 .info-section,
 .form-heading {
-  background-color: #2c2307;
+  background-color: #C0A1E5;
 }
 
 .login-page,
@@ -111,11 +127,15 @@ header,
 .new-form-page,
 .edit-form-page {
   border: 3px solid black;
+  border-radius: 25px;
   padding-bottom: 10px;
 }
 
 .form-heading {
-  padding: 10px;
+  padding: 15px;
+  border-radius: 22px;
+  border: 4px solid black;
+
 }
 
 .info-section,
@@ -138,9 +158,6 @@ header {
   padding: 0 1%;
 }
 
-header h1 {
-  font-size: 1em;
-}
 
 .site-row {
   display: flex;
@@ -176,11 +193,11 @@ main {
 }
 
 .delete-post-btn {
-  background-color: #d41414;
+  background-color: #f7d2b7;
 }
 
 .delete-post-btn:hover {
-  background-color: #ff643d;
+  background-color: #f5a75d;
 }
 
 .post {
@@ -198,7 +215,7 @@ main {
 .edit-link {
   display: block;
   margin: -1.5% 0 2% 0;
-  color: #2c2307;
+  color: #C0A1E5;
 }
 
 .comment-form {
@@ -244,12 +261,14 @@ main {
 
 .sign-in-link,
 .login-link {
-  color: #2c2307;
+  color: #C0A1E5;
+  display: block;
+  margin: 0 auto;
 }
 
 .form-heading h1,
 .form-heading h2 {
-  color: #b8cba2;
+  color: #f8f3fa;
 }
 
 .login-form,
@@ -263,5 +282,7 @@ main {
 .login-signup-btn,
 .btn,
 #post-title {
-  width: 100%;
+  width: 90%;
+  display: block;
+  margin: 0 auto;
 }
