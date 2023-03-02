@@ -1,10 +1,10 @@
 const Sequelize = require('sequelize');
 
-
+// Import dotenv to read environment variables from .env file
 require('dotenv').config();
 
 let sequelize;
-
+// Create a Sequelize instance with JawsDB URL if it's available, otherwise use the local database credentials
 if (process.env.JAWSDB_URL) {
   sequelize = new Sequelize(process.env.JAWSDB_URL);
 } else {

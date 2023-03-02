@@ -47,7 +47,7 @@ a clear.centered {
 
 
 button {
-  background-color: #9dCECA;
+  background-color: #4ab1a9;
   border: 0;
   padding: 1%;
   color: white;
@@ -193,11 +193,11 @@ main {
 }
 
 .delete-post-btn {
-  background-color: #f7d2b7;
+  background-color: #ea8034;
 }
 
 .delete-post-btn:hover {
-  background-color: #f5a75d;
+  background-color: #f5c292;
 }
 
 .post {

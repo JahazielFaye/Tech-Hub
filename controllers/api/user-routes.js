@@ -4,134 +4,136 @@ const {
     Post,
     Comment
 } = require('../../models');
-const withAuth = require('../../utils/auth');
 
+// Get all users
+router.get('/', (req, res) => {
+    User.findAll({
+            attributes: {
+                exclude: ['password']
+            }
+        })
+        .then(dbUserData => res.json(dbUserData))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
 
-// Get all posts
-router.get("/", (req, res) => {
-    Post.findAll({
-            attributes: ["id", "content", "title", "created_at"],
-            order: [
-                ["created_at", "DESC"]
-            ],
+// Get specific user
+router.get('/:id', (req, res) => {
+    User.findOne({
+            attributes: {
+                exclude: ['password']
+            },
+            where: {
+                id: req.params.id
+            },
             include: [{
-                    model: User,
-                    attributes: ["username"],
+                    model: Post,
+                    attributes: ['id', 'title', 'content', 'created_at']
                 },
                 {
                     model: Comment,
-                    attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
+                    attributes: ['id', 'comment_text', 'created_at'],
                     include: {
-                        model: User,
-                        attributes: ["username"],
-                    },
-                },
-            ],
+                        model: Post,
+                        attributes: ['title']
+                    }
+                }
+            ]
         })
-        .then((dbPostData) => res.json(dbPostData))
-        .catch((err) => {
-            console.log(err);
-            res.status(500).json(err);
-        });
-});
-
-// Get a single post
-router.get("/:id", (req, res) => {
-    Post.findOne({
-            where: {
-                id: req.params.id,
-            },
-            attributes: ["id", "content", "title", "created_at"],
-            include: [{
-                    model: User,
-                    attributes: ["username"],
-                },
-                {
-                    model: Comment,
-                    attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
-                    include: {
-                        model: User,
-                        attributes: ["username"],
-                    },
-                },
-            ],
-        })
-        .then((dbPostData) => {
-            if (!dbPostData) {
+        .then(dbUserData => {
+            if (!dbUserData) {
                 res.status(404).json({
-                    message: "No post found with this id"
+                    message: 'No user found with this id'
                 });
                 return;
             }
-            res.json(dbPostData);
+            res.json(dbUserData);
         })
-        .catch((err) => {
+        .catch(err => {
             console.log(err);
             res.status(500).json(err);
         });
 });
 
-// Create a post
-router.post("/", withAuth, (req, res) => {
-    console.log("creating");
-    Post.create({
-            title: req.body.title,
-            content: req.body.post_content,
-            user_id: req.session.user_id
+// Create a user
+router.post('/', (req, res) => {
+    User.create({
+            username: req.body.username,
+            password: req.body.password
         })
-        .then((dbPostData) => res.json(dbPostData))
-        .catch((err) => {
+        .then(dbUserData => {
+            req.session.save(() => {
+                req.session.user_id = dbUserData.id;
+                req.session.username = dbUserData.username;
+                req.session.loggedIn = true;
+
+                res.json(dbUserData);
+            });
+        })
+        .catch(err => {
             console.log(err);
             res.status(500).json(err);
         });
-});
+})
 
-// Update a post
-router.put("/:id", withAuth, (req, res) => {
-    Post.update({
-            title: req.body.title,
-            content: req.body.post_content,
-        }, {
+router.post('/login', (req, res) => {
+    User.findOne({
             where: {
-                id: req.params.id,
-            },
+                username: req.body.username
+            }
         })
-        .then((dbPostData) => {
-            if (!dbPostData) {
-                res.status(404).json({
-                    message: "No post found with this id"
+        .then(dbUserData => {
+            if (!dbUserData) {
+                res.status(400).json({
+                    message: 'No user with that username!'
                 });
                 return;
             }
-            res.json(dbPostData);
-        })
-        .catch((err) => {
-            console.log(err);
-            res.status(500).json(err);
-        });
-});
 
-//Delete a post
-router.delete("/:id", withAuth, (req, res) => {
-    Post.destroy({
-            where: {
-                id: req.params.id,
-            },
-        })
-        .then((dbPostData) => {
-            if (!dbPostData) {
-                res.status(404).json({
-                    message: "No post found with this id"
+            req.session.save(() => {
+                req.session.user_id = dbUserData.id;
+                req.session.username = dbUserData.username;
+                req.session.loggedIn = true;
+
+                res.json({
+                    user: dbUserData,
+                    message: 'You are now logged in!'
+                });
+            });
+
+            const validPassword = dbUserData.checkPassword(req.body.password);
+
+            if (!validPassword) {
+                res.status(400).json({
+                    message: 'Incorrect password!'
                 });
                 return;
             }
-            res.json(dbPostData);
-        })
-        .catch((err) => {
-            console.log(err);
-            res.status(500).json(err);
+
+            req.session.save(() => {
+                req.session.user_id = dbUserData.id;
+                req.session.username = dbUserData.username;
+                req.session.loggedIn = true;
+
+                res.json({
+                    user: dbUserData,
+                    message: 'You are now logged in!'
+                });
+            });
         });
 });
 
+router.post('/logout', (req, res) => {
+    if (req.session.loggedIn) {
+        req.session.destroy(() => {
+            res.status(204).end();
+        });
+    } else {
+        res.status(404).end();
+    }
+
+});
 
 module.exports = router;
