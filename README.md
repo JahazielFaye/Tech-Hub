@@ -48,3 +48,14 @@ DB_PW='your_db_password'
 ## 📧 Contact
 
 If you have any questions or suggestions, please feel free to contact me at hazelponsaran@gmail.com
+
+### Snippets in action
+
+![Screenshot of TechHub](./Assets/LogIn.png)
+![Screenshot of TechHub](./Assets/Post.png)
+![Screenshot of TechHub](./Assets/comment.png)
+![Screenshot of TechHub](./Assets/Delete.png)
+
+
+
+
