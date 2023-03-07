@@ -23,13 +23,15 @@ a CMS-style blog site built from scratch, following the MVC architectural struct
 ## 🌺 Deployment
 The site is deployed to Heroku and can be accessed here.
 
+https://techhub.herokuapp.com/
+
 ## 📝 Getting Started 🏗️ Installation
 
 To get started with this project, follow these steps:
 
 1. Clone this repository to your local machine
 
-git clone git@github.com:yourusername/your-repo.git
+git clone git@github.com:yourusername/your-repo.git .
 
 
 2. Install the necessary dependencies using `npm install`
